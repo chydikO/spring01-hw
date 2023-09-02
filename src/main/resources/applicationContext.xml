@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Создание бина для класса PostDaoSqlImpl -->
+    <bean id="postDao" class="com.chudik0.dao.imp.PostDaoSqlImpl">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!-- Создание бина для класса PostService -->
+    <bean id="postService" class="com.chudik0.service.PostService">
+        <property name="postDao" ref="postDao" /> <!-- Внедрение зависимости PostDao -->
+    </bean>
+
+    <!-- Конфигурация для подключения к базе данных MariaDB -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.mariadb.jdbc.Driver" />
+        <property name="url" value="jdbc:mariadb://localhost:3306/blog" />
+        <property name="username" value="root" />
+    </bean>
+
+</beans>

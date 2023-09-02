@@ -1,0 +1,38 @@
+Применить паттерн DAO для работы со списком постов из последнего задания.
+Описание паттерна: https://www.journaldev.com/16813/dao-design-pattern
+и https://www.oracle.com/java/technologies/dataaccessobject.html
+
+Должен быть класс Post в котором описать отдельный пост блога,
+интерфейс GenericDao:
+
+public interface GenericDao<T, ID> {
+	ID save(T data);
+        List<T> findAll();
+	T findById(ID id);
+	void delete(ID id);
+	T update(T data);
+}
+
+В интерфесе T - тип модели, ID - тип идентификатора
+
+интерфейс для Dao поста:
+
+public interface PostDao extends GenericDao<Post, Integer> {
+}
+
+класс PostDaoMySqlImpl, реализующий указанный интерфейс:
+
+public class PostDaoMySqlImpl implements GenericDao<Post, Integer> {
+	// здесь ваш код
+}
+
+В классе необходимо реализовать CRUD операции по сохранению данных в базу данных MySql
+
+Создать класс PostService, в который внедрить через сеттер PostDaoMySqlImpl с помощью spring.
+
+В PostService реализовать основные операции по работе с постами.
+Для чего нужен PostService? Для реализации трехуровневой архитектуры приложения.
+О том, что это такое можно почитать здесь:
+https://openclassrooms.com/en/courses/5684146-create-web-applications-efficiently-with-the-spring-boot-mvc-framework/6156961-organize-your-application-code-in-three-tier-architecture
+
+Продемонстрировать работу с сервисом PostService в консольном приложении
